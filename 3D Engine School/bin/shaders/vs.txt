@@ -1,0 +1,38 @@
+#version 150
+
+in vec3 position;
+
+
+out vec3 pass_position;
+out vec2 pass_amplitude;
+
+uniform mat4 transformationMatrix;
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix;
+uniform vec2 amplitude;
+
+
+void main(void){
+
+
+	// Translates the world positions by the transformation matrix so that the vertices move properly
+	// This is what allows the vertices to be moved to different places, not just the static location 
+	// where they are defined
+	vec4 worldPosition = transformationMatrix * vec4(position,1.0);
+	
+	// Translates the above translation by the view matrix
+	// This is what allows the camera to move by translating the position of the vertices so that the 
+	// camera appears to be moving
+	vec4 positionRelativeToCam = viewMatrix * worldPosition;
+	
+	// Translates the vector above once more by the view matrix
+	// This is what makes everything that is farther from the camera look farther away. This is the last
+	// translation performed so the vertex vector is passed to gl_Position, which "draws" the vertex
+	gl_Position = projectionMatrix * positionRelativeToCam;
+	
+	// Passes the positions of the vertex to the fragment shader for color calculations to be completed.
+	pass_position = position;
+	pass_amplitude = amplitude;
+	
+	
+}

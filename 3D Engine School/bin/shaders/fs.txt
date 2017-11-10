@@ -1,0 +1,54 @@
+#version 330
+
+in vec3 pass_position;
+in vec2 pass_amplitude;
+out vec4 out_Color;
+
+// This is an array of color values in a specific order. To get these values I googled a contour map that had a nice color scheme, and I used a web tool to get the RGB values of each of the color intervals.
+// Then I divided them all by 255 (because OpenGL only accepts RGB values from [0,1]) and put them in order from lowest height to greatest
+const vec3 heightColor[11] = vec3[11](
+	vec3(0.169, 0.514, 0.729),
+	vec3(0.314, 0.667, 0.678),
+	vec3(0.459, 0.784, 0.647),
+	vec3(0.611, 0.843, 0.643),
+	vec3(0.749, 0.898, 0.627),
+	vec3(0.875, 0.949, 0.600),
+	vec3(1.000, 1.000, 0.749),
+	vec3(0.996, 0.929, 0.631),
+	vec3(0.984, 0.615, 0.349),
+	vec3(0.910, 0.349, 0.220),
+	vec3(0.843, 0.239, 0.161)
+);
+
+void main(void){
+
+	// The amplitude vector is of the form (max, min) so this converts those values into one float for use as the real amplitude
+	float amp = pass_amplitude.x - pass_amplitude.y;
+
+	// Initializes a color vector (r, g, b)
+	vec3 color = vec3(0.0);
+	
+	// 10 different colors, 1/10 = 0.1
+	float interval = 0.1;
+	
+	// The height value of the vertex is on [min,max] (the amplitude of the terrain generator is not necessarily constant)
+	// So this is scaled to a more manageable interval of [0,1]
+	float height = ((pass_position.y / amp) - (pass_amplitude.y / amp));
+
+	// for each color, if the height is greater than the interval * i, then it is that color
+	for(int i = 0; i < 11; i ++){
+		if(height > (interval * i)){
+			color = heightColor[i];
+		}
+	}
+	
+	// While coloring each individual pixel per frame in this way is exhaustive, the scale of this program is relatively low so this is not a huge concern, resource wise.
+	
+
+	// OpenGL colors are 4 dimensional vectors, for red, green, blue, and alpha, so the color is converted to 4D
+	vec4 totalColor = vec4(color.x, color.y, color.z,1);
+	
+	// The final color is sent to OpenGL's out_Color to be drawn on screen.
+	// Note that the color is instantiated as variable above because multiplying the output by the totalColor variable deepens the color, which some may find desirable.
+	out_Color =  vec4(totalColor);
+}
