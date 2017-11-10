@@ -29,7 +29,9 @@ public class DisplayManager {
 		try {
 			// Sets the display to a predetermined width and height, and assigns the OpenGL attributes to it
 			//Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));
-			Display.setFullscreen(true);
+			
+			System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
+			Display.setFullscreen(false);
 			Display.create(new PixelFormat(), attribs);
 			Display.setTitle("Terrain Generator");
 			GL11.glEnable(GL13.GL_MULTISAMPLE);
