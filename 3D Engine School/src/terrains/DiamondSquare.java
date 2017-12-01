@@ -13,14 +13,21 @@ public class DiamondSquare {
 	 * 		Reduce the side length of the shapes by 2
 	 * 		Repeat until all points have a value
 	 */
+	private static long ops;
 	
-	
-
 	private static int VERTEX_COUNT;
 	// an initial seed value for the corners of the data
 	final static float SEED = 100000f;
 
 	private static float[][] heights;
+	
+	public DiamondSquare(){
+		ops = 0;
+	}
+	
+	public long getOps(){
+		return ops;
+	}
 
 	private static void generateHeights() {
 		// seed the 4 corners
@@ -51,13 +58,14 @@ public class DiamondSquare {
 							heights[x][y + sideLength] + 				// bottom left
 							heights[x + sideLength][y + sideLength];	// bottom right
 					average /= 4.0;
-
+					ops++;
 					// x + half, y + half represents the center of the square
 					// The center is set to the average of the points plus a random offset
 					// that has a value on [-offset, offset]
 					// The offset value decreases, ensuring that with each iteration the value
 					// of the height does not get too large.
 					heights[x + half][y + half] = average + (r.nextFloat() * 2 * offset) - offset;
+					ops++;
 				}
 			}
 
@@ -85,12 +93,14 @@ public class DiamondSquare {
 					
 					// Averages of the corners
 					avg /= 4.0;
+					ops++;
 
 					// Adds a random offset value.
 					// nextFloat() returns a float on [0,1.0] so this scales it to be on [-offset, offset]
 					avg = (avg + (r.nextFloat() * 2 * offset) - offset);
 					// update value for center of diamond
 					heights[x][y] = avg;
+					ops++;
 
 					// Sets the values of 2 edges to the average 
 					if (x == 0)
@@ -102,7 +112,7 @@ public class DiamondSquare {
 		}
 	}
 
-	public static float[][] createGrid(int vertexCount) {
+	public float[][] createGrid(int vertexCount) {
 		VERTEX_COUNT = vertexCount + 1; // This algorithm requires maps of size 2^n + 1, so 1 is added since all maps are of size 128 (2^7)
 		heights = new float[VERTEX_COUNT][VERTEX_COUNT];
 		generateHeights();

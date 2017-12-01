@@ -103,7 +103,7 @@ public class Camera{
 			float pitchChange = Mouse.getDY() * 0.2f;
 			pitch.setTarget(pitch.get() - pitchChange);
 			if(pitch.get() < -20){
-				pitch.force(0);
+				pitch.force(-20);
 			}else if(pitch.get() > 90){
 				pitch.force(90);
 			}

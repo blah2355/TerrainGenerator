@@ -68,7 +68,7 @@ public class DisplayManager {
 	}
 	
 	// Finds a standardized time
-	private static long getCurrentTime(){
+	public static long getCurrentTime(){
 		return Sys.getTime()*1000/Sys.getTimerResolution();
 	}
 	
