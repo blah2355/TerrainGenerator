@@ -12,6 +12,7 @@ public class Terrain {
 	private static final float SIZE = 500;
 	private float x;
 	private float z;
+	private Vector2f center;
 
 	private RawModel model;
 	private Loader loader;
@@ -30,6 +31,9 @@ public class Terrain {
 		this.z = gridZ * SIZE;
 		this.loader = loader;
 		this.model = generateTerrain();
+		
+		center = new Vector2f((x) + (SIZE / 2), (z) + (SIZE / 2));
+		
 	}
 
 	public float getX() {
@@ -57,6 +61,10 @@ public class Terrain {
 	
 	public RawModel getModel() {
 		return model;
+	}
+	
+	public Vector2f getCenter(){
+		return center;
 	}
 
 	public Vector2f getAmplitude() {
@@ -157,6 +165,20 @@ public class Terrain {
 			Perlin p = new Perlin();
 			tempHeights = p.createGrid(VERTEX_COUNT);
 			tempOps = p.getOps();
+			endTime = DisplayManager.getCurrentTime();
+			break;
+		case 3:
+			startTime = DisplayManager.getCurrentTime();
+			Simplex s = new Simplex();
+			tempHeights = s.createGrid(VERTEX_COUNT);
+			tempOps = s.getOps();
+			endTime = DisplayManager.getCurrentTime();
+			break;
+		case 4:
+			startTime = DisplayManager.getCurrentTime();
+			RandomNoise rn = new RandomNoise();
+			tempHeights = rn.createGrid(VERTEX_COUNT);
+			tempOps = rn.getOps();
 			endTime = DisplayManager.getCurrentTime();
 			break;
 		}

@@ -38,7 +38,8 @@ public class BarChart extends ApplicationFrame{
 	   private CategoryDataset createDataset( ) {
 	      final String fractal = "FRACTAL";        
 	      final String perlin = "PERLIN";        
-	      final String value = "VALUE";        
+	      final String value = "VALUE"; 
+	      final String simplex = "SIMPLEX";
 	      final String time = "Runtime";        
 	      final String ops = "Operations";             
 	      final DefaultCategoryDataset dataset = 
@@ -51,7 +52,10 @@ public class BarChart extends ApplicationFrame{
 	      dataset.addValue( operations[1] , fractal , ops );
 	     
 	      dataset.addValue( runtimes[2] , perlin , time );        
-	      dataset.addValue( operations[2] , perlin , ops );       
+	      dataset.addValue( operations[2] , perlin , ops ); 
+	      
+	      dataset.addValue(runtimes[3], simplex, time);
+	      dataset.addValue(operations[3], simplex, ops);
 
 
 	      return dataset; 

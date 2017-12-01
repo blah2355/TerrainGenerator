@@ -48,6 +48,13 @@ public class Camera{
 		updateViewMatrix();
 	}
 	
+	
+	public void setAnchor(float x, float z){
+		
+		anchor = new Vector3f(x, -z, 50);
+		
+	}
+	
 
 	public Vector3f getPosition() {
 		return position;

@@ -45,7 +45,7 @@ public class DiamondSquare {
 			// otherwise the calculation cannot find a halfway point to base the center point off of
 			
 			int half = sideLength / 2;
-
+			ops++;
 			// Iterate through the array of heights by using the side length of each square
 			// x and y represent the "top left" of the square created
 			// x + sideLength and y + sideLength represent the "bottom right"
