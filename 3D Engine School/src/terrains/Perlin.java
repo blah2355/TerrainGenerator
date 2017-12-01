@@ -24,6 +24,7 @@ public class Perlin {
 			for (int j = 0; j < height; j++) {
 				rand.setSeed(i * 49632 + j * 325176 + seed);
 				noise[i][j] = (rand.nextFloat() * AMPLITUDE) - (AMPLITUDE / 2);
+				ops++;
 			}
 		}
 
@@ -99,6 +100,7 @@ public class Perlin {
 			for (int i = 0; i < width; i++) {
 				for (int j = 0; j < height; j++) {
 					perlinNoise[i][j] += smoothNoise[octave][i][j] * amplitude;
+					ops++;
 				}
 			}
 		}
@@ -106,6 +108,7 @@ public class Perlin {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				perlinNoise[i][j] /= totalAmplitude;
+				ops++;
 			}
 		}
 

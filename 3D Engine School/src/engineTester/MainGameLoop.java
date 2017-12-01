@@ -17,8 +17,9 @@ import terrains.Terrain;
 public class MainGameLoop {
 
 	private static List<Terrain> terrains = new ArrayList<Terrain>();
-	private static final int ALGS_COUNT = 3;
+	private static final int ALGS_COUNT = 5;
 	private static final int DATA_FACTOR = 10000;
+	private static int t = 0;
 	
 	public static void main(String[] args) {
 
@@ -45,9 +46,19 @@ public class MainGameLoop {
 		runtimes[2] = terrain3.getRunTime() * DATA_FACTOR;
 		ops[2] = terrain3.getOps();
 		
+		Terrain terrain4 = new Terrain(1, -1, loader);
+		terrain4.setGenerator(3);
+		runtimes[3] = terrain4.getRunTime() * DATA_FACTOR;
+		ops[3] = terrain4.getOps();
+		
+		Terrain terrain5 = new Terrain(1,-2, loader);
+		terrain5.setGenerator(4);
+		
 		terrains.add(terrain);
 		terrains.add(terrain2);
 		terrains.add(terrain3);
+		terrains.add(terrain4);
+		terrains.add(terrain5);
 		
 		BarChart.createChart(runtimes, ops);
 		
@@ -63,13 +74,13 @@ public class MainGameLoop {
 
 			// Moves the camera
 			camera.move();
-			
+		
 			// Renders the terrains using the cameras POV
 			renderer.render(terrains, camera);
 			
 			// Checks for inputs to change terrain
 			checkInputs();
-
+			camera.setAnchor(terrains.get(t).getCenter().x, -terrains.get(t).getCenter().y);
 			DisplayManager.updateDisplay();
 		}
 
@@ -106,6 +117,28 @@ public class MainGameLoop {
 					}
 				}
 			}
+			
+			if(Keyboard.getEventKey() == Keyboard.KEY_LEFT){
+				if(Keyboard.getEventKeyState()){
+					t--;
+					if(t < 0){
+						t = terrains.size() - 1;
+					}
+				}
+			}
+			
+			if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT){
+				if(Keyboard.getEventKeyState()){
+					t++;
+					if(t >= terrains.size()){
+						t = 0;
+					}
+				}
+			}
+			
+			
+			
+			
 		}
 	}
 	

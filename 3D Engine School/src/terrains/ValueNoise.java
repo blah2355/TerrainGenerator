@@ -35,6 +35,9 @@ public class ValueNoise {
             float freq = (float) (Math.pow(2, i) / d);
             float amp = (float) Math.pow(ROUGHNESS, i) * AMPLITUDE;
             total += getInterpolatedNoise((x+xOffset)*freq, (z + zOffset)*freq) * amp;
+            ops++;
+            ops++;
+            ops++;
         }
         return total;
     }
@@ -76,6 +79,7 @@ public class ValueNoise {
  
     private static float getNoise(int x, int z) {
         random.setSeed(x * 49632 + z * 325176 + seed);
+        ops++;
         return random.nextFloat() * 2f - 1f;
     }
     
