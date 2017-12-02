@@ -11,9 +11,6 @@ import org.lwjgl.opengl.PixelFormat;
 public class DisplayManager {
 	
 	// LWJGL standard class to set up a display and ensure that the program doesnt run faster than 60 frames per second. Any more is just wasteful
-	
-	private static final int WIDTH = 1280;
-	private static final int HEIGHT = 720;
 	private static final int FPS_CAP = 60;
 	
 	private static long lastFrameTime;

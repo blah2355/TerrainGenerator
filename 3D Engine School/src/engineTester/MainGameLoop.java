@@ -20,6 +20,7 @@ public class MainGameLoop {
 	private static final int ALGS_COUNT = 5;
 	private static final int DATA_FACTOR = 10000;
 	private static int t = 0;
+	private static boolean demoMode = false;
 	
 	public static void main(String[] args) {
 
@@ -53,6 +54,8 @@ public class MainGameLoop {
 		
 		Terrain terrain5 = new Terrain(1,-2, loader);
 		terrain5.setGenerator(4);
+		runtimes[4] = terrain5.getRunTime() * DATA_FACTOR;
+		ops[4] = terrain5.getOps();
 		
 		terrains.add(terrain);
 		terrains.add(terrain2);
@@ -74,6 +77,7 @@ public class MainGameLoop {
 
 			// Moves the camera
 			camera.move();
+			camera.demoMode(demoMode);
 		
 			// Renders the terrains using the cameras POV
 			renderer.render(terrains, camera);
@@ -101,13 +105,32 @@ public class MainGameLoop {
 			}
 			if (Keyboard.getEventKey() == Keyboard.KEY_1) { // If the event is at 1
 				if (Keyboard.getEventKeyState()) { // Makes sure that this event is a new event (prevents from holding down a key and rapidly generating terrains)
-					
-					terrains.get(0).regenTerrain();
+					t = 0;
 					}
 			}
 			if (Keyboard.getEventKey() == Keyboard.KEY_2) { // Same as above but for key 2
 				if (Keyboard.getEventKeyState()) {
-					terrains.get(1).regenTerrain();;
+					t = 1;
+				}
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_3) { // Same as above but for key 2
+				if (Keyboard.getEventKeyState()) {
+					t = 2;
+				}
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_4) { // Same as above but for key 2
+				if (Keyboard.getEventKeyState()) {
+					t = 3;
+				}
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_5) { // Same as above but for key 2
+				if (Keyboard.getEventKeyState()) {
+					t = 4;
+				}
+			}
+			if (Keyboard.getEventKey() == Keyboard.KEY_D) { // Same as above but for key 2
+				if (Keyboard.getEventKeyState()) {
+					toggleDemo();
 				}
 			}
 			if(Keyboard.getEventKey() == Keyboard.KEY_SPACE){
@@ -134,10 +157,7 @@ public class MainGameLoop {
 						t = 0;
 					}
 				}
-			}
-			
-			
-			
+			}		
 			
 		}
 	}
@@ -154,5 +174,14 @@ public class MainGameLoop {
 		
 		return position;
 	}
+	
+	private static void toggleDemo(){
+		if(demoMode){
+			demoMode = false;
+		}else{
+			demoMode = true;
+		}
+	}
+	
 
 }

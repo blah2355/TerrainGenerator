@@ -13,7 +13,7 @@ public class Camera{
 		to properly display the terrain. Currently set up to rotate around an unmoving anchor point
 	*/
 	
-	private SmoothFloat distanceFromOrigin = new SmoothFloat(350, 8.0f);
+	private SmoothFloat distanceFromOrigin = new SmoothFloat(450, 8.0f);
 	private SmoothFloat angleAroundOrigin = new SmoothFloat(0, 8.0f);
 
 	private Matrix4f viewMatrix = new Matrix4f();
@@ -22,7 +22,9 @@ public class Camera{
 	
 	private Vector3f position = new Vector3f(0, 0, 0);
 	private Vector3f rotation = new Vector3f(0,0,0);
-	private SmoothFloat pitch = new SmoothFloat(35, 8.0f);
+	private SmoothFloat pitch = new SmoothFloat(25, 8.0f);
+	
+	private float demoRotate = 0f;
 	private float yaw = 0;
 	private float roll;
 	
@@ -53,6 +55,14 @@ public class Camera{
 		
 		anchor = new Vector3f(x, -z, 50);
 		
+	}
+	
+	public void demoMode(boolean demo){
+		if(demo){
+			demoRotate = 1f;
+		}else{
+			demoRotate = 0f;
+		}
 	}
 	
 
@@ -124,7 +134,7 @@ public class Camera{
 			float angleChange = Mouse.getDX() * 0.3f;
 			angleAroundOrigin.setTarget(angleAroundOrigin.get() - angleChange);
 		}else{
-			angleAroundOrigin.setTarget(angleAroundOrigin.get() );
+			angleAroundOrigin.setTarget(angleAroundOrigin.get()  + demoRotate);
 		}
 		angleAroundOrigin.update(DisplayManager.getFrameTimeSeconds());
 	}

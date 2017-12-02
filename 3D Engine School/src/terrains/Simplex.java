@@ -7,9 +7,7 @@ public class Simplex {
 	private static int grad3[][] = { { 1, 1, 0 }, { -1, 1, 0 }, { 1, -1, 0 }, { -1, -1, 0 }, { 1, 0, 1 }, { -1, 0, 1 },
 			{ 1, 0, -1 }, { -1, 0, -1 }, { 0, 1, -1 }, { 0, 1, 1 }, { 0, -1, 1 }, { 0, -1, -1 } };
 
-	private static Random r = new Random();
-
-	private static short p[] = { 151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103,
+	private short p[] = { 151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103,
 			30, 69, 142, 8, 99, 37, 240, 21, 10, 23, 190, 6, 148, 247, 120, 234, 75, 0, 26, 197, 62, 94, 252, 219, 203,
 			117, 35, 11, 32, 57, 177, 33, 88, 237, 149, 56, 87, 174, 20, 125, 136, 171, 168, 68, 175, 74, 165, 71, 134,
 			139, 48, 27, 166, 77, 146, 158, 231, 83, 111, 229, 122, 60, 211, 133, 230, 220, 105, 92, 41, 55, 46, 245,
@@ -22,8 +20,9 @@ public class Simplex {
 			50, 45, 127, 4, 150, 254, 138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61,
 			156, 180 };
 
-	static {
+	 {
 		for (int i = 0; i < p.length; i++) {
+			Random r = new Random();
 			int j = r.nextInt(p.length);
 			short temp = p[i];
 			p[i] = p[j];
@@ -33,10 +32,10 @@ public class Simplex {
 	
 	private static long ops;
 
-	private static short perm[] = new short[512];
-	private static short permMod12[] = new short[512];
+	private short perm[] = new short[512];
+	private short permMod12[] = new short[512];
 
-	static {
+	{
 		for (int i = 0; i < 512; i++) {
 			perm[i] = p[i & 255];
 			permMod12[i] = (short) (perm[i] % 12);
@@ -62,7 +61,7 @@ public class Simplex {
 		return g[0] * x + g[1] * y;
 	}
 
-	public static double noise(double xin, double yin) {
+	public double noise(double xin, double yin) {
 
 		double n0, n1, n2; // Noise contributions from the three corners
 		// Skew the input space to determine which simplex cell we're in
@@ -142,7 +141,7 @@ public class Simplex {
 		return 3000.0 * (n0 + n1 + n2);
 	}
 
-	public static float[][] generateSimplexNoise(int width, int height) {
+	public float[][] generateSimplexNoise(int width, int height) {
 		float[][] simplexnoise = new float[width][height];
 		float frequency = 5.0f / (float) width;
 		ops++;
