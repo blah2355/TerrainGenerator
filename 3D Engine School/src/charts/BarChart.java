@@ -40,6 +40,7 @@ public class BarChart extends ApplicationFrame{
 	      final String perlin = "PERLIN";        
 	      final String value = "VALUE"; 
 	      final String simplex = "SIMPLEX";
+	      final String random = "RANDOM NOISE";
 	      final String time = "Runtime";        
 	      final String ops = "Operations";             
 	      final DefaultCategoryDataset dataset = 
@@ -57,6 +58,8 @@ public class BarChart extends ApplicationFrame{
 	      dataset.addValue(runtimes[3], simplex, time);
 	      dataset.addValue(operations[3], simplex, ops);
 
+	      dataset.addValue(runtimes[4], random, time);
+	      dataset.addValue(operations[4], random, ops);
 
 	      return dataset; 
 	   }

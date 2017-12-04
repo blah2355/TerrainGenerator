@@ -21,6 +21,7 @@ public class RandomNoise {
 		for (int i = 0; i < VERTEX_COUNT + 4; i++) {
 			for (int j = 0; j < VERTEX_COUNT + 4; j++) {
 				gen_heights[i][j] = r.nextInt(AMPLITUDE) - AMPLITUDE/2;
+				ops++;
 			}
 		}
 	}
@@ -40,7 +41,7 @@ public class RandomNoise {
 		float sides = (gen_heights[j-1][i] + gen_heights[j+1][i] 
 				+ gen_heights[j][i-1] + gen_heights[j][i+1])/8f;
 		float center = gen_heights[j][i]/4f;
-    	
+    	ops++;
 		return corners+sides+center;
     	
     }

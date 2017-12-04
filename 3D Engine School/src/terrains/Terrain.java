@@ -20,15 +20,15 @@ public class Terrain {
 	private double runtime;
 	private long operations;
 
-	private static int genType = 0;
+	private int genType = 0;
 
 	private float[][] heights = new float[VERTEX_COUNT][VERTEX_COUNT];
 
 	// Creates a terrain of the proper size, and creates the model of the
 	// terrain based on the heights
 	public Terrain(int gridX, int gridZ, Loader loader) {
-		this.x = gridX * SIZE;
-		this.z = gridZ * SIZE;
+		this.x = gridX * SIZE * 100;
+		this.z = gridZ * SIZE * 100;
 		this.loader = loader;
 		this.model = generateTerrain();
 		
@@ -135,7 +135,7 @@ public class Terrain {
 	}
 
 	public void setGenerator(int type) {
-		genType = type;
+		this.genType = type;
 		regenTerrain();
 	}
 
